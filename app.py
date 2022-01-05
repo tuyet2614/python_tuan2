@@ -22,6 +22,10 @@ def add():
 def mul(a,b):
     return f"{a} * {b} = {a*b}"
 
+@app.route('/thread/<string:posttitle>')
+def getpage(posttitle):
+    return f"querying post via {posttitle}"
+
 if __name__ == '__main__':
     app.run()
     
