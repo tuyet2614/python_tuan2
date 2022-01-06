@@ -1,3 +1,4 @@
+from logging import debug
 from flask import Flask
 from flask import render_template, request
 import pandas as pd
@@ -33,6 +34,19 @@ def getpage(posttitle):
 def Student(MSV):
     student = df[df['student code'] == MSV]
     return student.to_html()
+
+@app.route('/student/class/<string:className>')
+def StudentCode(className):
+    student2 = df[df['First name'] == className]
+    return student2.to_html()
+
+@app.route('/student/code', methods=['POST', 'GET'])
+def getStudentviacode():
+    if request.method == 'POST':
+        studentcode = request.form.get('studentcode')
+        result = df[df['student code'] == studentcode].to_html()
+        return result
+    return render_template('studentfilter.html')
 
 if __name__ == '__main__':
     app.run()
